@@ -10,13 +10,15 @@
 import argparse
 import os
 from pathlib import Path
+from zipfile import ZipFile
 
 from kaggle.api.kaggle_api_extended import KaggleApi
 
 from src.data import load_params
 
 
-def download_data(competition, train_data, test_data,
+def download_data(train_data, test_data,
+                  competition=None,
                   output_dir="./data/raw",
                   credentials=".kaggle/kaggle.json"):
     """Download raw dataset from Kaggle"""
@@ -42,6 +44,13 @@ def download_data(competition, train_data, test_data,
 	        api.competition_download_file(competition, elem,
                                               force=True, quiet=False,
                                               path=output_dir)
+
+    # unzip files
+    for elem in [train_data, test_data]:
+        with ZipFile(output_dir.joinpath(elem+'.zip'), 'r') as zip:
+            zip.extractall(output_dir)
+
+        os.remove(output_dir.joinpath(elem+'.zip'))
 
 
 if __name__ == '__main__':

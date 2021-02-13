@@ -45,11 +45,11 @@ In your terminal, use the command-line interface to build the first stage of the
 
 ``` bash
 dvc run -n download_data -p competition \
--d src/data/download.py \
--o data/raw/train.csv \
--o data/raw/test.csv \
---desc "Download data from Kaggle"\
- python3 src/data/download.py -tr train.csv -te test.csv -o "./data/raw"
+    -d src/data/download.py \
+    -o data/raw/train.csv \
+    -o data/raw/test.csv \
+    --desc "Download data from Kaggle"\
+    python3 src/data/download.py -tr train.csv -te test.csv -o "./data/raw"
 ```
 
 ### 2. Data acquisition and understanding
