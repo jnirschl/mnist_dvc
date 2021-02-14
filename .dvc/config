@@ -2,3 +2,5 @@
     remote = dagshub
 ['remote "dagshub"']
     url = https://dagshub.com/jnirschl/mnist_dvc.dvc
+['remote "gdrive"']
+    url = gdrive://1Nwe7Aq_Dtesv1jm7B_SAE_8ppijSr9H4
