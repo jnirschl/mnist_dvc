@@ -1,0 +1,35 @@
+#   -*- coding: utf-8 -*-
+#  Copyright (c)  2021.  Jeffrey Nirschl. All rights reserved.
+#
+#  Licensed under the MIT license. See the LICENSE file in the project
+#  root directory for  license information.
+#
+#  Time-stamp: <>
+#   ======================================================================
+
+
+import cv2
+import numpy as np
+import pandas as pd
+
+
+def mean_image(img_array, img_shape=(28, 28, 1)):
+    """Accept images as numpy array with images separated by rows
+    and columns indicating pixel values"""
+    assert (type(img_array) is type(pd.DataFrame())), TypeError
+
+    # pre-allocate mean_img
+    mean_img = np.zeros(img_shape, dtype=np.float32)
+
+    # process files
+    for file_count, idx in enumerate(range(img_array.shape[0])):
+        temp_img = np.reshape(img_array.iloc[idx].to_numpy(), img_shape)
+        mean_img = cv2.accumulate(temp_img.astype(dtype=np.float32), mean_img)
+
+        if file_count % 10000 == 0:
+            print(f"Processed {file_count:0d} images.\n")
+
+    # divide by n_images
+    mean_img = np.divide(mean_img, file_count + 1)
+
+    return mean_img
