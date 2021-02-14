@@ -25,14 +25,14 @@ prepare_images:
     md5: f3eaeafb90cde88b238ebc8dfd4501c5
     size: 76775041
   - path: src/data/prepare_img.py
-    md5: 809132f37cf7c72032e52fad0a88788e
-    size: 3568
+    md5: 3d35926f5c9684996e33014de592326c
+    size: 3634
   outs:
   - path: data/processed/test/
-    md5: fd7f1038190d1b6d8038f9c160bf4d12.dir
-    size: 12570755
+    md5: 66b2ce447c7863903c1ab3440673ceb3.dir
+    size: 11898755
     nfiles: 28002
   - path: data/processed/train/
-    md5: b386167f17233ccb1bf6710c7a56169a.dir
-    size: 18827844
+    md5: 7ee0ff411887db8f822fb003693c2b3e.dir
+    size: 17735844
     nfiles: 42002
