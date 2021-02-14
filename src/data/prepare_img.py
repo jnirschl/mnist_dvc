@@ -58,7 +58,8 @@ def main(data_path, ext="png",
 
     # save a mapfile with the filename and label
     mapfile = pd.DataFrame({"filenames":filenames,
-                            target.columns[0]:target})
+                            target.columns[0]:target[target.columns[0]]},
+                           index=target.index)
     mapfile.to_csv(output.joinpath(f"{prefix}_mapfile.csv"),
                    na_rep=na_rep)
 
