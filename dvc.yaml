@@ -9,3 +9,14 @@ stages:
     outs:
     - data/raw/test.csv
     - data/raw/train.csv
+  prepare_images:
+    desc: Create images from numpy array
+    cmd: python3 src/data/prepare_img.py -tr data/raw/train.csv -te data/raw/test.csv
+      -o ./data/processed/
+    deps:
+    - data/raw/test.csv
+    - data/raw/train.csv
+    - src/data/prepare_img.py
+    outs:
+    - data/processed/test/
+    - data/processed/train/

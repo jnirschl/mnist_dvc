@@ -36,10 +36,8 @@ continuous), data range, as well as a table with key descriptive summary statist
 
 #### Downloading the dataset
 
-The script [download.py](src/data/download.py) will download the dataset from Kaggle, create a data dictionary,
-and summarize the dataset using [TableOne](https://pypi.org/project/tableone/). The key artifacts of this DVC stage are
-the [raw training and testing datasets](data/raw), the [data_dictionary](reports/figures/data_dictionary.tex), and
-the [summary table](/reports/figures/table_one.tex).
+The script [download.py](src/data/download.py) will download the dataset from Kaggle. The key artifacts of this 
+DVC stage are the [raw training and testing datasets](data/raw). 
 
 In your terminal, use the command-line interface to build the first stage of the pipeline.
 
@@ -50,6 +48,15 @@ dvc run -n download_data -p competition \
     -o data/raw/test.csv \
     --desc "Download data from Kaggle"\
     python3 src/data/download.py -tr train.csv -te test.csv -o "./data/raw"
+```
+
+``` bash
+dvc run -n prepare_images \
+    -d src/data/prepare_img.py \
+    -o data/processed/train/ \
+    -o data/processed/test/ \
+    --desc "Create images from numpy array"\
+    python3 src/data/prepare_img.py -tr train.csv -te test.csv -o "./data/processed/"
 ```
 
 ### 2. Data acquisition and understanding

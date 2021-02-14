@@ -14,3 +14,25 @@ download_data:
   - path: data/raw/train.csv
     md5: f3eaeafb90cde88b238ebc8dfd4501c5
     size: 76775041
+prepare_images:
+  cmd: python3 src/data/prepare_img.py -tr data/raw/train.csv -te data/raw/test.csv
+    -o ./data/processed/
+  deps:
+  - path: data/raw/test.csv
+    md5: a35759d77c0a3dadb4d4253ff87ec430
+    size: 51118296
+  - path: data/raw/train.csv
+    md5: f3eaeafb90cde88b238ebc8dfd4501c5
+    size: 76775041
+  - path: src/data/prepare_img.py
+    md5: 809132f37cf7c72032e52fad0a88788e
+    size: 3568
+  outs:
+  - path: data/processed/test/
+    md5: fd7f1038190d1b6d8038f9c160bf4d12.dir
+    size: 12570755
+    nfiles: 28002
+  - path: data/processed/train/
+    md5: b386167f17233ccb1bf6710c7a56169a.dir
+    size: 18827844
+    nfiles: 42002
