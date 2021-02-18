@@ -55,10 +55,8 @@ Reshape flattened images in CSV to two-dimensional images, compute mean image, a
 the image filepath with the ground truth label.  
 ``` bash
 dvc run -n prepare_images \
-    -d src/data/prepare_img.py \
-    -d src/img/transforms.py \
-    -d data/raw/train.csv \
-    -d data/raw/test.csv \
+    -d src/data/prepare_img.py -d src/img/transforms.py \
+    -d data/raw/train.csv      -d data/raw/test.csv \
     -o data/processed/train/ \
     -o data/processed/train_mapfile.csv \
     -o data/processed/train_mean_image.png \
@@ -92,10 +90,10 @@ TODO- Validation rules: Images must be (28,28,1) UINT8 images saved as 'png' or 
 ```bash
 dvc run -n split_train_dev -p random_seed,train_test_split \
     -d src/data/split_train_dev.py \
-    -d data/processed/train/train_mapfile.csv \
+    -d data/processed/train_mapfile.csv \
     -o data/processed/split_train_dev.csv \
     --desc "Split training data into the train and dev sets using stratified K-fold cross validation." \
-    python3 src/data/split_train_dev.py -tr data/processed/train/train_mapfile.csv  -o data/processed/
+    python3 src/data/split_train_dev.py -tr data/processed/train_mapfile.csv  -o data/processed/
 ```
 
 #### Model training

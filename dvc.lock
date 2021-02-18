@@ -51,3 +51,24 @@ prepare_images:
   - path: data/processed/train_mean_image.png
     md5: ba8cb543b4d754f714656ea4f80fac25
     size: 553
+split_train_dev:
+  cmd: python3 src/data/split_train_dev.py -tr data/processed/train_mapfile.csv -o
+    data/processed/
+  deps:
+  - path: data/processed/train_mapfile.csv
+    md5: ea488a9e8691af68286bcae690d8139b
+    size: 3348907
+  - path: src/data/split_train_dev.py
+    md5: 792aee2b163aba86ec23557dffdb27f2
+    size: 2974
+  params:
+    params.yaml:
+      random_seed:
+      train_test_split:
+        n_split: 10
+        shuffle: true
+        target_class: label
+  outs:
+  - path: data/processed/split_train_dev.csv
+    md5: 5e7de57f78c2ad342409d2d093732cd2
+    size: 2718979
