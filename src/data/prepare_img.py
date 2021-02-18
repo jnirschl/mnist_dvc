@@ -9,17 +9,17 @@
 
 import argparse
 import os
+from pathlib import Path
+
+import cv2
 import numpy as np
 import pandas as pd
-
-from pathlib import Path
-import cv2
 
 from src.img import transforms
 
 
 def main(data_path, ext="png",
-         img_shape=(28,28,1),
+         img_shape=(28, 28, 1),
          output="./data/interim/",
          prefix="",
          na_rep="nan"):
@@ -46,31 +46,33 @@ def main(data_path, ext="png",
     if "label" in img_array.columns:
         target = pd.DataFrame(img_array.pop("label"))
     else:
-        target = pd.DataFrame({"label":np.full_like(img_array[img_array.columns[0]],
-                                                    np.nan, dtype=np.float32)})
+        target = pd.DataFrame({"label": np.full_like(img_array[img_array.columns[0]],
+                                                     np.nan, dtype=np.float32)})
 
     # create mean image
     mean_image = transforms.mean_image(img_array)
-    cv2.imwrite(str(output.joinpath("mean_image.png")), mean_image)
+    cv2.imwrite(str(output.parent.joinpath(f"{prefix}_mean_image.png")), mean_image)
 
     # save individual images
     filenames = save_images(img_array, target, img_shape, ext, output)
 
     # save a mapfile with the filename and label
-    mapfile = pd.DataFrame({"filenames":filenames,
-                            target.columns[0]:target[target.columns[0]]},
+    mapfile = pd.DataFrame({"filenames": filenames,
+                            target.columns[0]: target[target.columns[0]]},
                            index=target.index)
-    mapfile.to_csv(output.joinpath(f"{prefix}_mapfile.csv"),
+    mapfile.to_csv(output.parent.joinpath(f"{prefix}_mapfile.csv"),
                    na_rep=na_rep)
 
 
 def save_images(img_array, target, img_shape, ext, output):
     """Subfunction to process flattened images in dataframe"""
+
     # process dataframe line by line
+    print(f"Reshaping flattened images in numpy array into 2D images...")
     filenames = []
     for idx in range(img_array.shape[0]):
-        if (idx+1) % 10000 == 0:
-            print(f"Processed {idx+1} images")
+        if (idx + 1) % 10000 == 0:
+            print(f"\tProcessed {idx + 1} images")
         # select image and reshape
         temp_img = np.reshape(img_array.iloc[idx].to_numpy(),
                               img_shape).astype(np.float32)
@@ -83,7 +85,7 @@ def save_images(img_array, target, img_shape, ext, output):
         if not cv2.imwrite(filenames[idx], temp_img):
             raise SystemError
 
-    print(f"Processed {idx + 1} images")
+    print(f"\tProcessed {idx + 1} images")
     return filenames
 
 

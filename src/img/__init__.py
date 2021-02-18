@@ -8,12 +8,9 @@
 #   ======================================================================
 
 # Standard library imports
-import os
 
 # Image and array operations
 import cv2
-import numpy as np
-import pandas as pd
 
 # Specify opencv optimization
 cv2.setUseOptimized(True)

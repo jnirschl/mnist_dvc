@@ -25,14 +25,29 @@ prepare_images:
     md5: f3eaeafb90cde88b238ebc8dfd4501c5
     size: 76775041
   - path: src/data/prepare_img.py
-    md5: 3d35926f5c9684996e33014de592326c
-    size: 3634
+    md5: 1dd8433961c87f7b4514d684cde74a45
+    size: 3747
+  - path: src/img/transforms.py
+    md5: a8f0b212f52e03f7e2858da17b9b440f
+    size: 1186
   outs:
   - path: data/processed/test/
-    md5: 66b2ce447c7863903c1ab3440673ceb3.dir
-    size: 11898755
-    nfiles: 28002
+    md5: 427349e04b6fe6e1fe32a50f2a018e6c.dir
+    size: 9585297
+    nfiles: 28000
+  - path: data/processed/test_mapfile.csv
+    md5: 20b8a4add20451e02de527c8e29fc932
+    size: 2312907
+  - path: data/processed/test_mean_image.png
+    md5: 86db97316378c727b5208218c0bd712b
+    size: 551
   - path: data/processed/train/
-    md5: 7ee0ff411887db8f822fb003693c2b3e.dir
-    size: 17735844
-    nfiles: 42002
+    md5: 060110092434af9690f2271343df27a1.dir
+    size: 14386384
+    nfiles: 42000
+  - path: data/processed/train_mapfile.csv
+    md5: ea488a9e8691af68286bcae690d8139b
+    size: 3348907
+  - path: data/processed/train_mean_image.png
+    md5: ba8cb543b4d754f714656ea4f80fac25
+    size: 553

@@ -15,6 +15,7 @@ import pandas as pd
 # Specify opencv optimization
 cv2.setUseOptimized(True)
 
+
 def mean_image(img_array, img_shape=(28, 28, 1)):
     """Accept images as numpy array with images separated by rows
     and columns indicating pixel values"""
@@ -30,7 +31,7 @@ def mean_image(img_array, img_shape=(28, 28, 1)):
         mean_img = cv2.accumulate(temp_img.astype(dtype=np.float32), mean_img)
 
         if file_count % 10000 == 0:
-            print(f"Processed {file_count:0d} images.")
+            print(f"\tProcessed {file_count:0d} images.")
 
     # divide by n_images
     mean_img = np.divide(mean_img, file_count + 1)
