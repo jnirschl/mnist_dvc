@@ -17,11 +17,9 @@ from sklearn.model_selection import StratifiedKFold
 from src.data import load_data, load_params
 
 
-def main(mapfile, output_dir):
+def main(mapfile, output_dir=None):
     """Split data into train and dev sets"""
     assert (os.path.isfile(mapfile)), FileNotFoundError
-    assert (os.path.isdir(output_dir)), NotADirectoryError
-    output_dir = Path(output_dir).resolve()
 
     # read file
     train_df = load_data(mapfile,
@@ -64,9 +62,15 @@ def main(mapfile, output_dir):
     # sort by index
     split_df = split_df.sort_index()
 
-    # save output dataframe with indices for train and dev sets
-    split_df.to_csv(output_dir.joinpath("split_train_dev.csv"),
-                    na_rep="nan")
+    if output_dir:
+        assert (os.path.isdir(output_dir)), NotADirectoryError
+        output_dir = Path(output_dir).resolve()
+
+        # save output dataframe with indices for train and dev sets
+        split_df.to_csv(output_dir.joinpath("split_train_dev.csv"),
+                        na_rep="nan")
+    else:
+        return split_df
 
 
 if __name__ == '__main__':

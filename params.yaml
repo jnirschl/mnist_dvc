@@ -1,9 +1,10 @@
-classifier: random_forest
+classifier: cnn
 competition: digit-recognizer
 drop_cols: null
 dtypes: null
 feature_eng:
   featurize: false
+gpu: false
 imputation: null
 model_params:
   logistic_regression: null
