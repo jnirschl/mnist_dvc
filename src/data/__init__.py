@@ -71,7 +71,7 @@ def load_data(data_path,
     Returns:
         object:
     """
-
+    assert(os.path.isfile(data_path)), FileNotFoundError
     # if single path as str, convert to list of str
     if type(data_path) is str:
         data_path = [data_path]

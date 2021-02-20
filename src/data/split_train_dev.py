@@ -19,12 +19,15 @@ from src.data import load_data, load_params
 
 def main(mapfile, output_dir=None):
     """Split data into train and dev sets"""
-    assert (os.path.isfile(mapfile)), FileNotFoundError
 
-    # read file
-    train_df = load_data(mapfile,
-                         sep=",", header=0,
-                         index_col=0)
+    if type(mapfile) is str:
+        assert (os.path.isfile(mapfile)), FileNotFoundError
+        # read file
+        train_df = load_data(mapfile,
+                             sep=",", header=0,
+                             index_col=0)
+    else:
+        train_df = mapfile
 
     # set index
     train_df.index.name = "index"
