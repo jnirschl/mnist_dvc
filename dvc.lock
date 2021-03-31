@@ -59,16 +59,16 @@ split_train_dev:
     md5: ea488a9e8691af68286bcae690d8139b
     size: 3348907
   - path: src/data/split_train_dev.py
-    md5: dd5b24202961bb8b12a4bedb6052c871
-    size: 3053
+    md5: 6a04fbc14171bff0c7cd02d02c08928c
+    size: 3139
   params:
     params.yaml:
-      random_seed:
+      random_seed: 12345
       train_test_split:
         n_split: 10
         shuffle: true
         target_class: label
   outs:
   - path: data/processed/split_train_dev.csv
-    md5: d9c8742242b0b4a29ff607bc7a4de7b6
+    md5: 81333772f19e82f6df5e0a81115a3b27
     size: 2718979
