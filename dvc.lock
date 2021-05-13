@@ -1,74 +1,109 @@
-download_data:
-  cmd: python3 src/data/download.py -tr train.csv -te test.csv -o ./data/raw
-  deps:
-  - path: src/data/download.py
-    md5: fed484009b78ed4a148cea34744e7388
-    size: 2834
-  params:
-    params.yaml:
-      competition: digit-recognizer
-  outs:
-  - path: data/raw/test.csv
-    md5: a35759d77c0a3dadb4d4253ff87ec430
-    size: 51118296
-  - path: data/raw/train.csv
-    md5: f3eaeafb90cde88b238ebc8dfd4501c5
-    size: 76775041
-prepare_images:
-  cmd: python3 src/data/prepare_img.py -tr data/raw/train.csv -te data/raw/test.csv
-    -o ./data/processed/
-  deps:
-  - path: data/raw/test.csv
-    md5: a35759d77c0a3dadb4d4253ff87ec430
-    size: 51118296
-  - path: data/raw/train.csv
-    md5: f3eaeafb90cde88b238ebc8dfd4501c5
-    size: 76775041
-  - path: src/data/prepare_img.py
-    md5: 1dd8433961c87f7b4514d684cde74a45
-    size: 3747
-  - path: src/img/transforms.py
-    md5: a8f0b212f52e03f7e2858da17b9b440f
-    size: 1186
-  outs:
-  - path: data/processed/test/
-    md5: 427349e04b6fe6e1fe32a50f2a018e6c.dir
-    size: 9585297
-    nfiles: 28000
-  - path: data/processed/test_mapfile.csv
-    md5: 20b8a4add20451e02de527c8e29fc932
-    size: 2312907
-  - path: data/processed/test_mean_image.png
-    md5: 86db97316378c727b5208218c0bd712b
-    size: 551
-  - path: data/processed/train/
-    md5: 060110092434af9690f2271343df27a1.dir
-    size: 14386384
-    nfiles: 42000
-  - path: data/processed/train_mapfile.csv
-    md5: ea488a9e8691af68286bcae690d8139b
-    size: 3348907
-  - path: data/processed/train_mean_image.png
-    md5: ba8cb543b4d754f714656ea4f80fac25
-    size: 553
-split_train_dev:
-  cmd: python3 src/data/split_train_dev.py -tr data/processed/train_mapfile.csv -o
-    data/processed/
-  deps:
-  - path: data/processed/train_mapfile.csv
-    md5: ea488a9e8691af68286bcae690d8139b
-    size: 3348907
-  - path: src/data/split_train_dev.py
-    md5: 6a04fbc14171bff0c7cd02d02c08928c
-    size: 3139
-  params:
-    params.yaml:
-      random_seed: 12345
-      train_test_split:
-        n_split: 10
-        shuffle: true
-        target_class: label
-  outs:
-  - path: data/processed/split_train_dev.csv
-    md5: 81333772f19e82f6df5e0a81115a3b27
-    size: 2718979
+schema: '2.0'
+stages:
+  download_data:
+    cmd: python3 src/data/download.py -tr train.csv -te test.csv -o ./data/raw
+    deps:
+    - path: src/data/download.py
+      md5: fed484009b78ed4a148cea34744e7388
+      size: 2834
+    params:
+      params.yaml:
+        competition: digit-recognizer
+    outs:
+    - path: data/raw/test.csv
+      md5: a35759d77c0a3dadb4d4253ff87ec430
+      size: 51118296
+    - path: data/raw/train.csv
+      md5: f3eaeafb90cde88b238ebc8dfd4501c5
+      size: 76775041
+  prepare_images:
+    cmd: python3 src/data/prepare_img.py -tr data/raw/train.csv -te data/raw/test.csv
+      -o ./data/processed/
+    deps:
+    - path: data/raw/test.csv
+      md5: a35759d77c0a3dadb4d4253ff87ec430
+      size: 51118296
+    - path: data/raw/train.csv
+      md5: f3eaeafb90cde88b238ebc8dfd4501c5
+      size: 76775041
+    - path: src/data/prepare_img.py
+      md5: 1dd8433961c87f7b4514d684cde74a45
+      size: 3747
+    - path: src/img/transforms.py
+      md5: a8f0b212f52e03f7e2858da17b9b440f
+      size: 1186
+    outs:
+    - path: data/processed/test/
+      md5: 427349e04b6fe6e1fe32a50f2a018e6c.dir
+      size: 9585297
+      nfiles: 28000
+    - path: data/processed/test_mapfile.csv
+      md5: 20b8a4add20451e02de527c8e29fc932
+      size: 2312907
+    - path: data/processed/test_mean_image.png
+      md5: 86db97316378c727b5208218c0bd712b
+      size: 551
+    - path: data/processed/train/
+      md5: 060110092434af9690f2271343df27a1.dir
+      size: 14386384
+      nfiles: 42000
+    - path: data/processed/train_mapfile.csv
+      md5: ea488a9e8691af68286bcae690d8139b
+      size: 3348907
+    - path: data/processed/train_mean_image.png
+      md5: ba8cb543b4d754f714656ea4f80fac25
+      size: 553
+  split_train_dev:
+    cmd: python3 src/data/split_train_dev.py -tr data/processed/train_mapfile.csv
+      -o data/processed/
+    deps:
+    - path: data/processed/train_mapfile.csv
+      md5: ea488a9e8691af68286bcae690d8139b
+      size: 3348907
+    - path: src/data/split_train_dev.py
+      md5: 6a04fbc14171bff0c7cd02d02c08928c
+      size: 3139
+    params:
+      params.yaml:
+        random_seed: 12345
+        train_test_split:
+          n_split: 10
+          shuffle: true
+          target_class: label
+    outs:
+    - path: data/processed/split_train_dev.csv
+      md5: 81333772f19e82f6df5e0a81115a3b27
+      size: 2718979
+  train_model:
+    cmd: python3 src/models/train_model.py -mf data/processed/train_mapfile.csv -cv
+      data/processed/split_train_dev.csv
+    deps:
+    - path: data/processed/split_train_dev.csv
+      md5: 81333772f19e82f6df5e0a81115a3b27
+      size: 2718979
+    - path: data/processed/train_mapfile.csv
+      md5: ea488a9e8691af68286bcae690d8139b
+      size: 3348907
+    - path: src/models/train_model.py
+      md5: fb86de6762a0dc1c25aeebf1a04c7145
+      size: 7230
+    params:
+      params.yaml:
+        classifier: simple_mnist
+        model_params:
+          logistic_regression:
+          naive_bayes:
+          neural_network:
+          random_forest:
+          support_vector_machine:
+          xgboost:
+          cnn:
+            epochs: 30
+            dropout_rate: 0.5
+            learn_rate: 0.01
+            optimizer: adam
+        random_seed: 12345
+    outs:
+    - path: reports/figures/logs.csv
+      md5: 93702a4ec399993bd4f1e62fa80797c7
+      size: 3124

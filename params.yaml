@@ -1,4 +1,4 @@
-classifier: cnn
+classifier: simple_mnist
 competition: digit-recognizer
 drop_cols: null
 dtypes: null
@@ -13,6 +13,11 @@ model_params:
   random_forest: null
   support_vector_machine: null
   xgboost: null
+  cnn:
+    epochs: 30
+    dropout_rate: 0.5
+    learn_rate: 0.01
+    optimizer: adam
 normalize: null
 param_tuning:
   logistic_regression: null

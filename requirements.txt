@@ -14,3 +14,4 @@ Keras~=2.4.3
 
 tensorflow~=2.4.1
 pillow~=8.1.2
+opencv-contrib-python~=4.5.2.52

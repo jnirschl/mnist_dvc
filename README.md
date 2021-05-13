@@ -99,14 +99,13 @@ dvc run -n split_train_dev -p random_seed,train_test_split \
 #### Model training
 
 ``` bash
-dvc run -n train_model -p classifier,model_params,random_seed,train_test_split.target_class \
+dvc run -n train_model -p classifier,model_params,random_seed \
     -d src/models/train_model.py \
-    -d data/processed/train_processed.csv \
+    -d data/processed/train_mapfile.csv \
     -d data/processed/split_train_dev.csv \
-    -o models/estimator.pkl \
-    -m results/metrics.json \
+    --plots reports/figures/logs.csv \
     --desc "Train the specified classifier using the pre-allocated stratified K-fold cross validation splits and the current params.yaml settings." \
-    python3 src/models/train_model.py -tr data/processed/train_processed.csv -cv data/processed/split_train_dev.csv
+    python3 src/models/train_model.py -mf data/processed/train_mapfile.csv -cv data/processed/split_train_dev.csv
 ```
 
 #### Predict output
